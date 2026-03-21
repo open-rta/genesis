@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-rta.org/genesis/schemas/authority.schema.json",
+  "title": "Authority",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["authority_id", "originator", "executor", "issued_at"],
+  "properties": {
+    "authority_id": { "type": "string", "minLength": 1 },
+    "originator": { "type": "string", "minLength": 1 },
+    "approver": { "type": "string", "minLength": 1 },
+    "executor": { "type": "string", "minLength": 1 },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

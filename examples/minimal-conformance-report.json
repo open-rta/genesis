@@ -1,0 +1,24 @@
+{
+  "report_id": "CONF-2026-0001",
+  "runtime_name": "ExampleRuntime",
+  "runtime_version": "1.4.2",
+  "open_rta_version": "0.1.0",
+  "supported_laws": [
+    "01-no-rogue-autonomy",
+    "02-observable-execution",
+    "03-interruptible-control",
+    "04-replayable-behavior"
+  ],
+  "evidence": {
+    "objective": "rta/objective.yaml",
+    "authority": "rta/authority.yaml",
+    "trace": "rta/trace/trace-events.json",
+    "oversight": "rta/oversight/oversight-record.json",
+    "control": "rta/control/control-record.json",
+    "replay": "rta/replay/replay-record.json"
+  },
+  "limitations": [
+    "Pause requests in physical subsystems may take up to 2 seconds to apply"
+  ],
+  "declared_at": "2026-03-21T10:30:00Z"
+}

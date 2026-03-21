@@ -1,0 +1,8 @@
+authority_id: AUTH-2026-001
+originator: "ops-director@example.org"
+approver: "compliance-lead@example.org"
+executor: "runtime:magenta-like-executor"
+issued_at: "2026-03-21T09:55:00Z"
+constraints:
+  - "Read-only access to production metrics store"
+  - "No outbound actions outside approved notification channel"

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-rta.org/genesis/schemas/replay-record.schema.json",
+  "title": "ReplayRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "replay_id",
+    "objective_id",
+    "source_trace",
+    "generated_at",
+    "reconstruction_level",
+    "summary",
+    "referenced_events"
+  ],
+  "properties": {
+    "replay_id": { "type": "string", "minLength": 1 },
+    "objective_id": { "type": "string", "minLength": 1 },
+    "source_trace": { "type": "string", "minLength": 1 },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "reconstruction_level": { "type": "string", "minLength": 1 },
+    "summary": { "type": "string", "minLength": 1 },
+    "referenced_events": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}
