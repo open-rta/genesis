@@ -1,0 +1,8 @@
+{
+  "oversight_id": "OVR-2026-0001",
+  "objective_id": "OBJ-2026-0001",
+  "observer": "oversight-service",
+  "observed_at": "2026-03-21T10:03:00Z",
+  "status_snapshot": "execution active, no policy violations",
+  "notes": "Live observation available through runtime state endpoint"
+}

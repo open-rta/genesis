@@ -1,0 +1,8 @@
+{
+  "control_id": "CTL-2026-0001",
+  "objective_id": "OBJ-2026-0001",
+  "control_type": "pause",
+  "issued_by": "ops-supervisor@example.org",
+  "issued_at": "2026-03-21T10:04:00Z",
+  "effect": "execution paused for manual verification"
+}

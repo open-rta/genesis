@@ -1,0 +1,22 @@
+[
+  {
+    "event_id": "EVT-1",
+    "objective_id": "OBJ-2026-0001",
+    "action_id": "ACT-1",
+    "actor": "planner-component",
+    "event_type": "objective.accepted",
+    "timestamp": "2026-03-21T10:00:05Z",
+    "status": "ok",
+    "summary": "Objective accepted for execution"
+  },
+  {
+    "event_id": "EVT-2",
+    "objective_id": "OBJ-2026-0001",
+    "action_id": "ACT-2",
+    "actor": "executor-component",
+    "event_type": "report.generated",
+    "timestamp": "2026-03-21T10:02:11Z",
+    "status": "ok",
+    "summary": "Weekly summary generated"
+  }
+]

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-rta.org/genesis/schemas/objective.schema.json",
+  "title": "Objective",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["objective_id", "description", "authority_ref", "created_at", "status"],
+  "properties": {
+    "objective_id": { "type": "string", "minLength": 1 },
+    "description": { "type": "string", "minLength": 1 },
+    "authority_ref": { "type": "string", "minLength": 1 },
+    "created_at": { "type": "string", "format": "date-time" },
+    "status": { "type": "string", "minLength": 1 },
+    "scope": { "type": "object" }
+  }
+}

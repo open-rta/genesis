@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-rta.org/genesis/schemas/control-record.schema.json",
+  "title": "ControlRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["control_id", "objective_id", "control_type", "issued_by", "issued_at", "effect"],
+  "properties": {
+    "control_id": { "type": "string", "minLength": 1 },
+    "objective_id": { "type": "string", "minLength": 1 },
+    "control_type": { "type": "string", "minLength": 1 },
+    "issued_by": { "type": "string", "minLength": 1 },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "effect": { "type": "string", "minLength": 1 }
+  }
+}
