@@ -61,8 +61,8 @@ func ResolveAndValidate(m manifest.Manifest, ctx manifest.Context) (map[string]r
 			}
 			traceErrs := []string{}
 			for idx, ev := range events {
-				ok, schemaErrs := schema.ValidateAgainstSchema(schemaPath, ev)
-				if !ok {
+				schemaErrs := schema.ValidateDataAgainstSchema(ev, schemaPath)
+				if len(schemaErrs) > 0 {
 					for _, e := range schemaErrs {
 						traceErrs = append(traceErrs, fmt.Sprintf("[index %d] %s", idx, e))
 					}
@@ -91,8 +91,8 @@ func ResolveAndValidate(m manifest.Manifest, ctx manifest.Context) (map[string]r
 			continue
 		}
 
-		ok, schemaErrs := schema.ValidateAgainstSchema(schemaPath, parsed)
-		if !ok {
+		schemaErrs := schema.ValidateDataAgainstSchema(parsed, schemaPath)
+		if len(schemaErrs) > 0 {
 			f := false
 			r.SchemaValid = &f
 			r.Errors = append(r.Errors, schemaErrs...)

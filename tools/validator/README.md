@@ -21,6 +21,7 @@ The validator is intentionally isolated under `tools/validator` so it can later 
 - checks basic claim/evidence consistency
 - checks claimed level prerequisites for L0-L3
 - writes machine-readable validation report output (optional)
+- uses `github.com/xeipuuv/gojsonschema` in an isolated schema layer for JSON Schema checks
 
 ## What the validator does not do
 
@@ -33,10 +34,10 @@ Validator pass != foundation certificate.
 
 ## Build and run
 
-From repository root:
+From `tools/validator`:
 
 ```bash
-go run ./tools/validator --manifest ./examples/open-rta-manifest.json
+go run . --manifest ../../examples/open-rta-manifest.json
 ```
 
 Build binary (optional):
@@ -50,7 +51,7 @@ go build -o bin/open-rta-validate .
 Write report JSON:
 
 ```bash
-go run ./tools/validator --manifest ./examples/open-rta-manifest.json --report ./examples/validation-report.generated.json
+cd tools/validator && go run . --manifest ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
 ```
 
 ## Output fields
