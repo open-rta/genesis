@@ -1,8 +1,8 @@
-package validator
+package report
 
 import "fmt"
 
-func printSummary(r ValidationReport) {
+func PrintSummary(r ValidationReport) {
 	fmt.Println("Open RTA Validation Summary")
 	fmt.Println("===========================")
 	fmt.Printf("Manifest: %s\n", r.ManifestPath)

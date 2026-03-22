@@ -1,7 +1,8 @@
-# Non-Goals (v0.1)
+# Non-Goals
 
-Open RTA Genesis v0.1 does not attempt to define:
-- agent architecture
+Open RTA Genesis does not attempt to define:
+- runtime architecture
+- internal runtime modules or engineering patterns
 - planner design
 - memory implementation
 - simulation implementation
@@ -14,4 +15,8 @@ Open RTA Genesis v0.1 does not attempt to define:
 - UI/UX
 - deployment stack
 
-These areas are intentionally left to runtime and domain implementers. Genesis defines minimal law and conformance conditions that can be satisfied through different technical approaches.
+Open RTA does **not** prescribe runtime repository structure.
+
+Open RTA does **not** require any runtime to adopt fixed folder names or conventions.
+
+Open RTA requires discoverable conformance evidence, not prescribed internal layout.

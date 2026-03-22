@@ -20,3 +20,4 @@ Genesis defines the laws and conformance expectations of Open RTA. It does not d
 - [`manual-review.md`](manual-review.md)
 - [`certification-levels.md`](certification-levels.md)
 - [`certificate-issuance.md`](certificate-issuance.md)
+- [`validator-scope.md`](validator-scope.md)

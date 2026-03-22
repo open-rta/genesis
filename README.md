@@ -1,109 +1,89 @@
 # Open RTA Genesis
 
-Open RTA Genesis is the canonical law, specification, and conformance repository for Open RTA (Reliable Traceable Agents).
+## 1) What Genesis is
 
-Genesis defines the laws and conformance expectations of Open RTA. It does not define runtime architecture.
+Open RTA Genesis is the canonical law, specification, conformance, and governance repository for Open RTA (Reliable Traceable Agents).
 
-> Open RTA requires discoverable evidence, not prescribed internal layout.
+Genesis is intentionally **spec-first**. It defines law and conformance expectations, then provides schemas and examples to make those expectations testable.
 
-## What Genesis is
-
-Genesis defines and publishes:
-- foundational laws
-- core concepts
-- normative conformance requirements
-- machine-readable JSON Schemas
-- examples and governance process
-- a lightweight validator tool for pre-review conformance checks
-
-## What Genesis is not
+## 2) What Genesis is not
 
 Genesis is not:
 - a runtime
 - an SDK
-- an agent framework
+- a framework
 - a control plane
-- a hosted service
-- a final certification authority
+- a hosted validator service
+- a replacement for manual/foundation certification review
 
-## How runtime authors use Genesis
+Genesis does **not** define runtime architecture, internal repository layout, or implementation-specific engineering patterns.
 
-1. Read laws in [`laws/`](laws/) and requirements in [`spec/`](spec/).
-2. Produce an `open-rta-manifest.json` in your own repository.
-3. Reference your own evidence artifacts from the manifest.
-4. Run the local validator from [`tools/validator/`](tools/validator/).
-5. Use the report as a pre-certification readiness input before manual/foundation review.
+## 3) The four Open RTA conditions
 
-Genesis does not require importing Genesis code into your runtime.
+1. **No Rogue Autonomy**: autonomous action must have attributable origin.
+2. **Observable Execution**: execution must be inspectable during or after operation.
+3. **Interruptible Control**: authority must be able to intervene according to runtime constraints.
+4. **Replayable Behavior**: execution must leave evidence for reconstruction or meaningful replay.
 
-## Where key pieces live
+## 4) Manifest-first conformance model
 
-- Laws: [`laws/`](laws/)
-- Spec requirements: [`spec/`](spec/)
-- Schemas: [`schemas/`](schemas/)
-- Examples: [`examples/`](examples/)
-- Validator tool: [`tools/validator/`](tools/validator/)
+Conformance is manifest-first:
+- runtime authors publish an `open-rta-manifest.json`
+- the manifest points to evidence artifacts
+- validators/reviewers resolve and assess evidence from manifest references
 
-## Automatic validation workflow
+> Open RTA requires discoverable evidence, not prescribed internal layout.
 
-From `tools/validator/`:
+Evidence may live anywhere in a runtime repository (or exported evidence bundle). What matters is discoverability and conformance, not folder naming conventions.
 
-```bash
-go build -o bin/open-rta-validate ./cmd/open-rta-validate
-./bin/open-rta-validate ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
-```
+## 5) How runtime authors use Genesis
 
-The validator supports local filesystem evidence references in this initial release.
+1. Read laws in [`laws/`](laws/) and normative requirements in [`spec/`](spec/).
+2. Produce an `open-rta-manifest.json` in your runtime repository.
+3. Reference your evidence artifacts from that manifest.
+4. Run the local support validator under [`tools/validator/`](tools/validator/).
+5. Use validator output as pre-review input for manual/foundation review.
 
-## What automatic validation covers
+A runtime does not need to import Genesis code to be Open RTA-conformant.
 
-- manifest presence and JSON parseability
-- manifest schema validation (`schemas/open-rta-manifest.schema.json`)
-- evidence reference resolution for local files
-- schema validation of known evidence artifacts:
-  - objective
-  - authority
-  - trace
-  - replay
-  - oversight
-  - control
-  - conformance_report
-- basic laws/evidence consistency checks
-- claimed compliance level prerequisite checks (L0-L3)
+## 6) What the validator does
 
-See [`spec/automatic-tests.md`](spec/automatic-tests.md) for normative details.
+The validator (currently inside Genesis, intentionally isolated under `tools/validator`) performs basic automatic checks:
+- manifest existence + JSON parse
+- manifest schema validation
+- local evidence reference resolution
+- schema validation for known evidence artifact categories
+- basic law claim/evidence consistency checks
+- L0-L3 prerequisite checks
+- machine-readable validation report output
 
-## What automatic validation does not cover
+## 7) What the validator does not do
 
-Automatic checks do **not** prove:
-- operational safety or reliability in production
-- quality or meaningfulness of oversight
-- practical effectiveness of controls
-- replay usefulness beyond structural evidence
-- semantic truthfulness of all evidence contents
-- L4 certification status
+The validator does not:
+- run runtime code
+- inspect internal runtime architecture
+- prove operational safety or production reliability
+- prove oversight/control quality in real operations
+- issue L4/foundation certification
 
-These are handled by manual/foundation review. See:
-- [`spec/manual-review.md`](spec/manual-review.md)
-- [`spec/certificate-issuance.md`](spec/certificate-issuance.md)
+## 8) Certification vs validator output
 
-## Compliance levels at a glance
+A passing validator report indicates **automatic pre-check readiness** only.
 
-- **L0 — Declared**: valid manifest + attestation
-- **L1 — Attributable + Observable**: L0 + objective + authority + trace
-- **L2 — Controlled**: L1 + control
-- **L3 — Replayable**: L2 + replay
-- **L4 — Reviewed / Foundation-certified**: manual review required
+Validator pass != foundation certificate.
 
-Full requirements: [`spec/certification-levels.md`](spec/certification-levels.md).
+Manual/foundation review remains required for higher-assurance judgments and formal certification outcomes.
 
-## Recommended reading order
+## 9) Repository structure guide
 
-1. [`CHARTER.md`](CHARTER.md)
-2. [`laws/`](laws/)
-3. [`concepts/`](concepts/)
-4. [`spec/manifest-requirements.md`](spec/manifest-requirements.md)
-5. [`spec/conformance-model.md`](spec/conformance-model.md)
-6. [`schemas/`](schemas/)
-7. [`tools/validator/README.md`](tools/validator/README.md)
-8. [`examples/`](examples/)
+- [`laws/`](laws/): law-level constraints.
+- [`concepts/`](concepts/): shared conceptual vocabulary.
+- [`spec/`](spec/): normative requirements and validation scope boundaries.
+- [`schemas/`](schemas/): machine-readable contracts.
+- [`examples/`](examples/): illustrative manifest/evidence/report examples.
+- [`governance/`](governance/): law and spec evolution process.
+- [`tools/validator/`](tools/validator/): support tooling (Go validator), intentionally isolated.
+
+## 10) Future ecosystem note
+
+Validator tooling lives inside Genesis for now to support adoption, but it is deliberately isolated so it can be split later (for example to a dedicated `open-rta-validator` repository) with minimal disruption to the law/spec source of truth.

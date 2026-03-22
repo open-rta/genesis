@@ -1,18 +1,22 @@
-package validator
+package evidence
 
 import (
 	"encoding/json"
 	"fmt"
 	"os"
+
+	"github.com/open-rta/genesis/tools/validator/internal/manifest"
+	"github.com/open-rta/genesis/tools/validator/internal/report"
+	"github.com/open-rta/genesis/tools/validator/internal/schema"
 )
 
-func resolveEvidence(m Manifest, ctx Context) (map[string]EvidenceResult, []string, []string) {
-	results := map[string]EvidenceResult{}
+func ResolveAndValidate(m manifest.Manifest, ctx manifest.Context) (map[string]report.EvidenceResult, []string, []string) {
+	results := map[string]report.EvidenceResult{}
 	errs := []string{}
 	warns := []string{}
 
 	for key, ref := range m.Evidence {
-		r := EvidenceResult{Found: false}
+		r := report.EvidenceResult{Found: false}
 		if ref.Type == "url" || isURL(ref.Ref) {
 			r.Warnings = append(r.Warnings, "URL evidence is not fetched automatically in v0.2")
 			warns = append(warns, fmt.Sprintf("evidence '%s' uses URL and was not auto-validated", key))
@@ -30,7 +34,7 @@ func resolveEvidence(m Manifest, ctx Context) (map[string]EvidenceResult, []stri
 		}
 		r.Found = true
 
-		schemaPath, known := schemaPathForArtifact(ctx.RepoRoot, key)
+		schemaPath, known := schema.ArtifactSchemaPath(ctx.RepoRoot, key)
 		if !known {
 			r.Warnings = append(r.Warnings, "no known schema mapping for this evidence key")
 			results[key] = r
@@ -57,7 +61,7 @@ func resolveEvidence(m Manifest, ctx Context) (map[string]EvidenceResult, []stri
 			}
 			traceErrs := []string{}
 			for idx, ev := range events {
-				ok, schemaErrs := validateDataAgainstSchema(schemaPath, ev)
+				ok, schemaErrs := schema.ValidateAgainstSchema(schemaPath, ev)
 				if !ok {
 					for _, e := range schemaErrs {
 						traceErrs = append(traceErrs, fmt.Sprintf("[index %d] %s", idx, e))
@@ -87,7 +91,7 @@ func resolveEvidence(m Manifest, ctx Context) (map[string]EvidenceResult, []stri
 			continue
 		}
 
-		ok, schemaErrs := validateDataAgainstSchema(schemaPath, parsed)
+		ok, schemaErrs := schema.ValidateAgainstSchema(schemaPath, parsed)
 		if !ok {
 			f := false
 			r.SchemaValid = &f

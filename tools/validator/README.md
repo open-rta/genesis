@@ -1,69 +1,68 @@
-# Open RTA Validator (Genesis)
+# Open RTA Validator (Genesis Support Tooling)
 
-This tool provides lightweight, local, automatic validation for `open-rta-manifest.json` and referenced evidence artifacts.
+The Open RTA validator is a small Go tool that performs automatic pre-review checks for `open-rta-manifest.json` and referenced evidence artifacts.
 
-Genesis defines the laws and conformance expectations of Open RTA. It does not define runtime architecture.
+Genesis remains the canonical law/spec/conformance repository. This validator is support tooling only.
 
-> Open RTA requires discoverable evidence, not prescribed internal layout.
+## Why this tool lives inside Genesis (for now)
 
-## What this validator does
+- to provide practical conformance pre-checks close to the canonical schemas/spec
+- to improve adoption while keeping Open RTA law/spec central
+- to preserve a staged path toward future extraction if tooling grows
 
-- validates manifest presence and JSON structure
+The validator is intentionally isolated under `tools/validator` so it can later move to a dedicated repository (for example `open-rta-validator`) with minimal disruption.
+
+## What the validator does
+
+- checks manifest file existence and JSON parsing
 - validates manifest against `schemas/open-rta-manifest.schema.json`
 - resolves local evidence references
-- validates known schema-backed artifacts
-- checks basic law/evidence consistency
+- validates known schema-backed evidence artifacts when possible
+- checks basic claim/evidence consistency
 - checks claimed level prerequisites for L0-L3
-- writes a machine-readable validation report
+- writes machine-readable validation report output (optional)
 
-## What it does not do
+## What the validator does not do
 
-- does not run runtime code
-- does not introspect deployment internals
-- does not evaluate operational quality or safety
-- does not grant L4 or formal certification
+- does not run or introspect runtime internals
+- does not define runtime architecture or folder layout
+- does not prove operational quality or real-world safety
+- does not grant L4/foundation certification
+
+Validator pass != foundation certificate.
 
 ## Build and run
 
-From `tools/validator/`:
+From repository root:
 
 ```bash
-go build -o bin/open-rta-validate ./cmd/open-rta-validate
-./bin/open-rta-validate <path-to-open-rta-manifest.json>
+go run ./tools/validator --manifest ./examples/open-rta-manifest.json
 ```
 
-Optional report output:
+Build binary (optional):
 
 ```bash
-./bin/open-rta-validate <manifest-path> --report <report-output.json>
+cd tools/validator
+go build -o bin/open-rta-validate .
+./bin/open-rta-validate --manifest ../../examples/open-rta-manifest.json
 ```
 
-Without building, you can also run directly:
+Write report JSON:
 
 ```bash
-go run ./cmd/open-rta-validate ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
+go run ./tools/validator --manifest ./examples/open-rta-manifest.json --report ./examples/validation-report.generated.json
 ```
 
-## Example
+## Output fields
 
-```bash
-./bin/open-rta-validate ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
-```
-
-## Output shape
-
-The JSON report includes:
+Validation report fields include:
 - `manifest_path`
 - `runtime_name`
 - `runtime_version`
 - `claimed_level`
 - `validated_level`
 - `passed`
-- `errors[]`
-- `warnings[]`
-- `evidence_results{}`
-- `notes[]`
-
-## Certification note
-
-A passing validator report indicates basic conformance readiness only. It is not equivalent to foundation/manual certification issuance.
+- `errors`
+- `warnings`
+- `evidence_results`
+- `notes`

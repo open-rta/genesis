@@ -17,9 +17,15 @@ Detailed process guidance is in [governance/proposal-process.md](governance/prop
 - **Clarifying**: improves wording without changing normative meaning.
 - **Normative**: changes requirements, constraints, or conformance expectations.
 - **Breaking**: introduces incompatibility with prior compliant artifacts or interpretations.
+- **Tooling**: changes support tooling behavior without changing normative law/spec.
 
 ## Law evolution
 Law-level changes require explicit rationale, compatibility analysis, and broader review than ordinary clarifications. See [governance/law-change-process.md](governance/law-change-process.md).
+
+## Tooling evolution
+Validator/tooling changes may evolve on different timelines than law/spec text.
+
+A tooling implementation change is **not** equivalent to a law/spec change unless normative documents are also changed.
 
 ## Review expectations
 Until a formal governance body is established, review should include maintainers and cross-runtime stakeholders with no single runtime privileged to define shared law.

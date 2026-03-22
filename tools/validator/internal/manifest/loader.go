@@ -1,15 +1,11 @@
-package validator
+package manifest
 
 import (
+	"encoding/json"
 	"fmt"
+	"os"
 	"path/filepath"
 )
-
-type Context struct {
-	RepoRoot     string
-	ManifestPath string
-	ManifestDir  string
-}
 
 func findRepoRoot(start string) (string, error) {
 	current, err := filepath.Abs(start)
@@ -17,9 +13,7 @@ func findRepoRoot(start string) (string, error) {
 		return "", err
 	}
 	for {
-		hasSchemas := fileExists(filepath.Join(current, "schemas"))
-		hasLaws := fileExists(filepath.Join(current, "laws"))
-		if hasSchemas && hasLaws {
+		if fileExists(filepath.Join(current, "schemas")) && fileExists(filepath.Join(current, "laws")) {
 			return current, nil
 		}
 		parent := filepath.Dir(current)
@@ -30,12 +24,13 @@ func findRepoRoot(start string) (string, error) {
 	}
 }
 
-func LoadManifest(manifestPathInput string) (Manifest, Context, error) {
+func Load(manifestPathInput string) (Manifest, Context, error) {
 	var m Manifest
 	repoRoot, err := findRepoRoot(".")
 	if err != nil {
 		return m, Context{}, err
 	}
+
 	absManifest, err := filepath.Abs(manifestPathInput)
 	if err != nil {
 		return m, Context{}, err
@@ -43,9 +38,20 @@ func LoadManifest(manifestPathInput string) (Manifest, Context, error) {
 	if !fileExists(absManifest) {
 		return m, Context{}, fmt.Errorf("manifest file not found: %s", absManifest)
 	}
-	if err := readJSONFile(absManifest, &m); err != nil {
+
+	bytes, err := os.ReadFile(absManifest)
+	if err != nil {
+		return m, Context{}, fmt.Errorf("manifest read failed: %w", err)
+	}
+	if err := json.Unmarshal(bytes, &m); err != nil {
 		return m, Context{}, fmt.Errorf("failed to parse manifest JSON: %w", err)
 	}
+
 	ctx := Context{RepoRoot: repoRoot, ManifestPath: absManifest, ManifestDir: filepath.Dir(absManifest)}
 	return m, ctx, nil
+}
+
+func fileExists(path string) bool {
+	_, err := os.Stat(path)
+	return err == nil
 }

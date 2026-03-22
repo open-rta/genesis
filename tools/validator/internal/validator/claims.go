@@ -1,6 +1,8 @@
 package validator
 
-func validateClaims(m Manifest) []string {
+import "github.com/open-rta/genesis/tools/validator/internal/manifest"
+
+func validateClaims(m manifest.Manifest) []string {
 	errors := []string{}
 	has := func(k string) bool { _, ok := m.Evidence[k]; return ok }
 	claims := map[string]bool{}
