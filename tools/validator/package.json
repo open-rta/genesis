@@ -1,0 +1,24 @@
+{
+  "name": "open-rta-validate",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Lightweight Open RTA manifest and evidence validator",
+  "type": "commonjs",
+  "bin": {
+    "open-rta-validate": "dist/cli.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx src/cli.ts",
+    "validate:example": "tsx src/cli.ts ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "@types/node": "^24.7.2"
+  }
+}

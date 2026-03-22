@@ -1,7 +1,7 @@
 {
   "replay_id": "RPL-2026-0001",
   "objective_id": "OBJ-2026-0001",
-  "source_trace": "rta/trace/trace-events.json",
+  "source_trace": "examples/minimal-trace.json",
   "generated_at": "2026-03-21T10:10:00Z",
   "reconstruction_level": "meaningful",
   "summary": "Reconstruction confirms acceptance, execution, and report generation sequence.",

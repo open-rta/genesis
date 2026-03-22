@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://open-rta.org/genesis/schemas/open-rta-certificate.schema.json",
+  "title": "OpenRTACertificate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "certificate_id",
+    "open_rta_version",
+    "runtime",
+    "level",
+    "issued_at",
+    "issued_by",
+    "status"
+  ],
+  "properties": {
+    "certificate_id": { "type": "string", "minLength": 1 },
+    "open_rta_version": { "type": "string", "minLength": 1 },
+    "runtime": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "version": { "type": "string", "minLength": 1 },
+        "vendor": { "type": "string", "minLength": 1 }
+      }
+    },
+    "level": {
+      "type": "string",
+      "enum": ["L0", "L1", "L2", "L3", "L4"]
+    },
+    "issued_at": { "type": "string", "format": "date-time" },
+    "issued_by": { "type": "string", "minLength": 1 },
+    "status": {
+      "type": "string",
+      "enum": ["active", "revoked", "expired", "superseded"]
+    },
+    "basis": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "manifest_path": { "type": "string", "minLength": 1 },
+        "validation_report": { "type": "string", "minLength": 1 },
+        "review_record": { "type": "string", "minLength": 1 }
+      }
+    },
+    "notes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}
