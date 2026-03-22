@@ -1,19 +1,15 @@
 # Roadmap
 
-## v0.1
-- Publish charter, four laws, concept definitions, and minimal schemas.
-- Establish baseline conformance model and evidence artifacts.
-- Keep Genesis clearly spec-first.
+## 0.1.0
+- Publish charter, four laws, concepts, baseline schemas, examples, and governance.
+- Establish Genesis as a spec-first law/conformance repository.
 
-## v0.2
-- Add manifest-first conformance workflow and documentation.
-- Add basic validator support tooling inside Genesis under `tools/validator`.
-- Keep tooling isolated and secondary to laws/spec.
-- Clarify automatic validation vs manual/foundation review.
+## 0.1.1
+- Clarify manifest-first conformance workflow.
+- Keep validator support tooling isolated under `tools/validator`.
+- Improve first-time workflow with manifest generation + validation commands.
+- Clarify automatic checks vs manual/foundation review boundaries.
 
-## v0.3
-- Improve replay and oversight requirements.
-- Expand guidance for quality review beyond structural conformance.
-
-## Future
-- If tooling grows materially, split validator into a dedicated repository (for example `open-rta-validator`) while Genesis remains the canonical law/spec source of truth.
+## Later
+- Expand guidance quality while preserving implementation neutrality.
+- If tooling grows materially, extract validator into a dedicated repository while Genesis remains canonical law/spec source.

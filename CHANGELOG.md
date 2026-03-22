@@ -1,26 +1,15 @@
 # Changelog
 
-All notable changes to this repository are documented here.
+All notable changes to Genesis are documented here in release style.
 
-## v0.2.1
-- Refactored validator tooling to a staged structure under `tools/validator` with clear package separation (`manifest`, `evidence`, `levels`, `report`, `schema`).
-- Removed legacy TypeScript validator artifacts and kept a single primary Go validator implementation.
-- Clarified root and governance docs so Genesis remains spec-first and tooling remains support-only.
-- Added explicit staged-positioning language for future extraction of validator tooling to a dedicated repo.
+## 0.1.1
+- Clarified manifest-first conformance guidance and preserved layout-neutral evidence expectations.
+- Added and refined support tooling under `tools/validator` (Go) for automatic pre-review checks.
+- Added `init-manifest` workflow (interactive + flag-based) to generate starter `open-rta-manifest.json` files.
+- Improved validator documentation and first-time user workflow for generate -> validate usage.
+- Refined governance/positioning text to keep Genesis spec-first and tooling support-only.
 
-## v0.2.0
-- Added a manifest-based validator tool under `tools/validator` implemented in Go.
-- Added `schemas/open-rta-manifest.schema.json`.
-- Added `schemas/open-rta-certificate.schema.json`.
-- Added automatic validation and manual review specification documents.
-- Added certification-level and certificate-issuance documentation.
-- Added `examples/open-rta-manifest.json` and `examples/validation-report.json`.
-- Updated README and examples to a manifest-first, layout-neutral model.
-
-## v0.1.0
-- Initial charter.
-- Initial laws.
-- Initial concepts.
-- Initial specification documents.
-- Initial JSON Schemas.
-- Initial examples.
+## 0.1.0
+- Initial charter, laws, concepts, and specification baseline.
+- Initial schemas and examples for conformance artifacts.
+- Initial governance and repository policy documentation.

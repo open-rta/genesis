@@ -1,0 +1,34 @@
+{
+  "manifest_path": "/workspace/genesis/examples/generated-manifest.json",
+  "runtime_name": "DemoRuntime",
+  "runtime_version": "0.1.0",
+  "claimed_level": "L1",
+  "validated_level": "L1",
+  "passed": true,
+  "errors": [],
+  "warnings": [],
+  "evidence_results": {
+    "authority": {
+      "found": true,
+      "path": "/workspace/genesis/examples/minimal-authority.json",
+      "schema_valid": true
+    },
+    "objective": {
+      "found": true,
+      "path": "/workspace/genesis/examples/minimal-objective.json",
+      "schema_valid": true
+    },
+    "trace": {
+      "found": true,
+      "path": "/workspace/genesis/examples/minimal-trace.json",
+      "schema_valid": true
+    }
+  },
+  "notes": [],
+  "summary": {
+    "checked_evidence_count": 3,
+    "schema_validated_count": 3,
+    "hard_error_count": 0,
+    "warning_count": 0
+  }
+}

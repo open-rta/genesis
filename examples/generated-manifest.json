@@ -1,0 +1,54 @@
+{
+  "manifest_version": "1.0.0",
+  "open_rta_version": "0.1.0",
+  "runtime": {
+    "name": "DemoRuntime",
+    "version": "0.1.0"
+  },
+  "compliance": {
+    "laws_claimed": [
+      "no-rogue-autonomy",
+      "observable-execution"
+    ],
+    "level_claimed": "L1"
+  },
+  "evidence": {
+    "authority": {
+      "type": "file",
+      "ref": "minimal-authority.json",
+      "schema": "authority",
+      "format": "json"
+    },
+    "objective": {
+      "type": "file",
+      "ref": "minimal-objective.json",
+      "schema": "objective",
+      "format": "json"
+    },
+    "trace": {
+      "type": "file",
+      "ref": "minimal-trace.json",
+      "schema": "trace",
+      "format": "json"
+    }
+  },
+  "test_targets": [
+    {
+      "id": "auto-objective",
+      "description": "automatic validation target: objective"
+    },
+    {
+      "id": "auto-authority",
+      "description": "automatic validation target: authority"
+    },
+    {
+      "id": "auto-trace",
+      "description": "automatic validation target: trace"
+    }
+  ],
+  "attestation": {
+    "by": "ops@example.org",
+    "timestamp": "2026-03-22T06:45:18Z",
+    "statement": "To the best of our knowledge, this manifest accurately references current conformance evidence."
+  }
+}

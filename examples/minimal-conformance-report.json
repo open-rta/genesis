@@ -2,7 +2,7 @@
   "report_id": "CONF-2026-0001",
   "runtime_name": "ExampleRuntime",
   "runtime_version": "1.4.2",
-  "open_rta_version": "0.2.0",
+  "open_rta_version": "0.1.0",
   "supported_laws": [
     "01-no-rogue-autonomy",
     "02-observable-execution",

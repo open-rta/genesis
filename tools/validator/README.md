@@ -1,69 +1,103 @@
-# Open RTA Validator (Genesis Support Tooling)
+# Open RTA Validator (Support Tooling)
 
-The Open RTA validator is a small Go tool that performs automatic pre-review checks for `open-rta-manifest.json` and referenced evidence artifacts.
+This Go tool provides support workflows for Open RTA runtime authors:
 
-Genesis remains the canonical law/spec/conformance repository. This validator is support tooling only.
+1. `init-manifest` — generate a starter `open-rta-manifest.json`
+2. `validate` — validate a manifest and referenced evidence
 
-## Why this tool lives inside Genesis (for now)
+Genesis remains spec-first; this tool is intentionally secondary support tooling.
 
-- to provide practical conformance pre-checks close to the canonical schemas/spec
-- to improve adoption while keeping Open RTA law/spec central
-- to preserve a staged path toward future extraction if tooling grows
-
-The validator is intentionally isolated under `tools/validator` so it can later move to a dedicated repository (for example `open-rta-validator`) with minimal disruption.
-
-## What the validator does
-
-- checks manifest file existence and JSON parsing
-- validates manifest against `schemas/open-rta-manifest.schema.json`
-- resolves local evidence references
-- validates known schema-backed evidence artifacts when possible
-- checks basic claim/evidence consistency
-- checks claimed level prerequisites for L0-L3
-- writes machine-readable validation report output (optional)
-- uses `github.com/xeipuuv/gojsonschema` in an isolated schema layer for JSON Schema checks
-
-## What the validator does not do
-
-- does not run or introspect runtime internals
-- does not define runtime architecture or folder layout
-- does not prove operational quality or real-world safety
-- does not grant L4/foundation certification
-
-Validator pass != foundation certificate.
-
-## Build and run
+## Build / run
 
 From `tools/validator`:
 
 ```bash
-go run . --manifest ../../examples/open-rta-manifest.json
+go build -o bin/open-rta .
+./bin/open-rta validate --manifest ../../examples/open-rta-manifest.json
 ```
 
-Build binary (optional):
+Or without building:
 
 ```bash
-cd tools/validator
-go build -o bin/open-rta-validate .
-./bin/open-rta-validate --manifest ../../examples/open-rta-manifest.json
+go run . validate --manifest ../../examples/open-rta-manifest.json
 ```
 
-Write report JSON:
+## Command: init-manifest
+
+### Interactive mode
 
 ```bash
-cd tools/validator && go run . --manifest ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
+go run . init-manifest
 ```
 
-## Output fields
+The tool prompts for runtime identity, compliance claim, evidence refs, attestation, limitations, and output path.
 
-Validation report fields include:
-- `manifest_path`
-- `runtime_name`
-- `runtime_version`
-- `claimed_level`
-- `validated_level`
-- `passed`
-- `errors`
-- `warnings`
-- `evidence_results`
-- `notes`
+### Flag-based mode
+
+```bash
+go run . init-manifest \
+  --non-interactive \
+  --runtime-name "ExampleRuntime" \
+  --runtime-version "0.1.0" \
+  --open-rta-version "0.1.0" \
+  --level L1 \
+  --laws "no-rogue-autonomy,observable-execution" \
+  --declared-by "compliance@example.org" \
+  --objective-ref "./evidence/objective.json" \
+  --authority-ref "./evidence/authority.json" \
+  --trace-ref "./evidence/trace.json" \
+  --output ./open-rta-manifest.json
+```
+
+### Key flags
+
+- `--output`
+- `--force`
+- `--non-interactive`
+- `--runtime-name`
+- `--runtime-version`
+- `--open-rta-version`
+- `--level`
+- `--description`
+- `--repository`
+- `--homepage`
+- `--declared-by`
+- `--contact`
+- `--laws`
+- `--applies-to`
+- `--exclusions`
+- `--objective-ref`
+- `--authority-ref`
+- `--trace-ref`
+- `--control-ref`
+- `--oversight-ref`
+- `--replay-ref`
+- `--conformance-ref`
+- `--limitations`
+
+### Overwrite protection
+
+`init-manifest` will not overwrite an existing file unless:
+- interactive confirmation is given, or
+- `--force` is passed.
+
+## Command: validate
+
+```bash
+go run . validate --manifest ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
+```
+
+Automatic checks:
+- manifest parse + schema validation
+- evidence existence (for local refs)
+- known evidence schema validation
+- laws/evidence consistency
+- level prerequisite checks (L0-L3)
+
+## Important limitation
+
+Generated manifests are a **starting point**, not automatic compliance.
+
+Validator pass != foundation certificate.
+
+Manual/foundation review is still required.

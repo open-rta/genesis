@@ -1,89 +1,86 @@
 # Open RTA Genesis
 
-## 1) What Genesis is
+Open RTA Genesis is the canonical law/spec/conformance repository for Open RTA.
 
-Open RTA Genesis is the canonical law, specification, conformance, and governance repository for Open RTA (Reliable Traceable Agents).
-
-Genesis is intentionally **spec-first**. It defines law and conformance expectations, then provides schemas and examples to make those expectations testable.
-
-## 2) What Genesis is not
-
-Genesis is not:
-- a runtime
-- an SDK
-- a framework
-- a control plane
-- a hosted validator service
-- a replacement for manual/foundation certification review
-
-Genesis does **not** define runtime architecture, internal repository layout, or implementation-specific engineering patterns.
-
-## 3) The four Open RTA conditions
-
-1. **No Rogue Autonomy**: autonomous action must have attributable origin.
-2. **Observable Execution**: execution must be inspectable during or after operation.
-3. **Interruptible Control**: authority must be able to intervene according to runtime constraints.
-4. **Replayable Behavior**: execution must leave evidence for reconstruction or meaningful replay.
-
-## 4) Manifest-first conformance model
-
-Conformance is manifest-first:
-- runtime authors publish an `open-rta-manifest.json`
-- the manifest points to evidence artifacts
-- validators/reviewers resolve and assess evidence from manifest references
+Genesis is **spec-first**: it defines laws, concepts, conformance expectations, schemas, and governance. Tooling inside Genesis is support tooling, not the standard itself.
 
 > Open RTA requires discoverable evidence, not prescribed internal layout.
 
-Evidence may live anywhere in a runtime repository (or exported evidence bundle). What matters is discoverability and conformance, not folder naming conventions.
+## What Genesis is
 
-## 5) How runtime authors use Genesis
+- Open RTA laws and concepts
+- conformance requirements and review boundaries
+- canonical schemas and examples
+- governance policy for law/spec evolution
+- lightweight support tooling under `tools/validator`
 
-1. Read laws in [`laws/`](laws/) and normative requirements in [`spec/`](spec/).
-2. Produce an `open-rta-manifest.json` in your runtime repository.
-3. Reference your evidence artifacts from that manifest.
-4. Run the local support validator under [`tools/validator/`](tools/validator/).
-5. Use validator output as pre-review input for manual/foundation review.
+## What Genesis is not
 
-A runtime does not need to import Genesis code to be Open RTA-conformant.
+Genesis is not a runtime, framework, SDK, or control plane.
 
-## 6) What the validator does
+Genesis does not prescribe runtime architecture, internal repository structure, or engineering patterns.
 
-The validator (currently inside Genesis, intentionally isolated under `tools/validator`) performs basic automatic checks:
+## Four Open RTA conditions
+
+1. No Rogue Autonomy
+2. Observable Execution
+3. Interruptible Control
+4. Replayable Behavior
+
+## Manifest-first conformance model
+
+Runtime authors publish an `open-rta-manifest.json` that references evidence artifacts.
+
+Those artifacts can live anywhere in a runtime repository; what matters is that evidence is discoverable and conforms to Open RTA expectations.
+
+## First-time workflow (generate -> validate)
+
+From `tools/validator`:
+
+```bash
+# 1) Create starter manifest interactively
+go run . init-manifest
+
+# 2) Validate it
+go run . validate --manifest ./open-rta-manifest.json
+```
+
+Or generate non-interactively:
+
+```bash
+go run . init-manifest \
+  --non-interactive \
+  --runtime-name "ExampleRuntime" \
+  --declared-by "compliance@example.org" \
+  --level L1 \
+  --laws "no-rogue-autonomy,observable-execution" \
+  --output ./open-rta-manifest.json
+```
+
+## Validator scope (support tooling)
+
+Validator automatic checks include:
 - manifest existence + JSON parse
 - manifest schema validation
-- local evidence reference resolution
-- schema validation for known evidence artifact categories
-- basic law claim/evidence consistency checks
-- L0-L3 prerequisite checks
-- machine-readable validation report output
+- local evidence resolution
+- schema validation for known evidence categories
+- basic claims/evidence consistency checks
+- L0-L3 prerequisite checks (L4 remains manual/foundation review)
 
-## 7) What the validator does not do
+## Certification boundary
 
-The validator does not:
-- run runtime code
-- inspect internal runtime architecture
-- prove operational safety or production reliability
-- prove oversight/control quality in real operations
-- issue L4/foundation certification
-
-## 8) Certification vs validator output
-
-A passing validator report indicates **automatic pre-check readiness** only.
+Validator pass is pre-review readiness only.
 
 Validator pass != foundation certificate.
 
-Manual/foundation review remains required for higher-assurance judgments and formal certification outcomes.
+Manual/foundation review remains required for higher-trust judgments and formal certification outcomes.
 
-## 9) Repository structure guide
+## Repo structure
 
-- [`laws/`](laws/): law-level constraints.
-- [`concepts/`](concepts/): shared conceptual vocabulary.
-- [`spec/`](spec/): normative requirements and validation scope boundaries.
-- [`schemas/`](schemas/): machine-readable contracts.
-- [`examples/`](examples/): illustrative manifest/evidence/report examples.
-- [`governance/`](governance/): law and spec evolution process.
-- [`tools/validator/`](tools/validator/): support tooling (Go validator), intentionally isolated.
-
-## 10) Future ecosystem note
-
-Validator tooling lives inside Genesis for now to support adoption, but it is deliberately isolated so it can be split later (for example to a dedicated `open-rta-validator` repository) with minimal disruption to the law/spec source of truth.
+- `laws/` — legal constraints
+- `concepts/` — shared definitions
+- `spec/` — normative requirements and review boundaries
+- `schemas/` — canonical contracts
+- `examples/` — illustrative manifests/evidence/reports
+- `governance/` — evolution process and policy
+- `tools/validator/` — isolated support tooling (Go)
