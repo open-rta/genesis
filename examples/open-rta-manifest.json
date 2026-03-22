@@ -1,0 +1,69 @@
+{
+  "manifest_version": "1.0.0",
+  "open_rta_version": "0.1.0",
+  "runtime": {
+    "name": "ExampleRuntime",
+    "version": "1.4.2",
+    "vendor": "Example Org"
+  },
+  "compliance": {
+    "laws_claimed": [
+      "no-rogue-autonomy",
+      "observable-execution",
+      "interruptible-control",
+      "replayable-behavior"
+    ],
+    "level_claimed": "L3"
+  },
+  "evidence": {
+    "objective": {
+      "type": "artifact",
+      "ref": "minimal-objective.json",
+      "schema": "objective"
+    },
+    "authority": {
+      "type": "artifact",
+      "ref": "minimal-authority.json",
+      "schema": "authority"
+    },
+    "trace": {
+      "type": "artifact",
+      "ref": "minimal-trace.json",
+      "schema": "trace"
+    },
+    "control": {
+      "type": "artifact",
+      "ref": "minimal-control-record.json",
+      "schema": "control"
+    },
+    "oversight": {
+      "type": "artifact",
+      "ref": "minimal-oversight-record.json",
+      "schema": "oversight"
+    },
+    "replay": {
+      "type": "artifact",
+      "ref": "minimal-replay-record.json",
+      "schema": "replay"
+    },
+    "conformance_report": {
+      "type": "artifact",
+      "ref": "minimal-conformance-report.json",
+      "schema": "conformance_report"
+    }
+  },
+  "test_targets": [
+    {
+      "id": "weekly-summary-path",
+      "description": "Generation and delivery of weekly operational summary"
+    }
+  ],
+  "attestation": {
+    "by": "compliance-lead@example.org",
+    "timestamp": "2026-03-21T10:30:00Z",
+    "statement": "To the best of our knowledge, this manifest accurately references current conformance evidence."
+  },
+  "limitations": [
+    "Pause requests in physical subsystems may take up to 2 seconds to apply"
+  ]
+}

@@ -18,6 +18,8 @@ The term RTA draws from a concept of underlying order. In physical systems, that
 ## Separation of law and implementation
 Open RTA defines conditions, not implementations.
 
+Genesis tooling (including validator tooling) supports conformance workflows but does not define law. Law and specification are normative; tooling is supportive and may evolve independently.
+
 ## Federation
 Different runtimes and domains may independently implement Open RTA while adhering to shared laws, concepts, and conformance expectations.
 

@@ -1,0 +1,56 @@
+{
+  "manifest_path": "examples/open-rta-manifest.json",
+  "runtime_name": "ExampleRuntime",
+  "runtime_version": "1.4.2",
+  "claimed_level": "L3",
+  "validated_level": "L3",
+  "passed": true,
+  "errors": [],
+  "warnings": [],
+  "evidence_results": {
+    "objective": {
+      "found": true,
+      "path": "examples/minimal-objective.json",
+      "schema_valid": true
+    },
+    "authority": {
+      "found": true,
+      "path": "examples/minimal-authority.json",
+      "schema_valid": true
+    },
+    "trace": {
+      "found": true,
+      "path": "examples/minimal-trace.json",
+      "schema_valid": true
+    },
+    "control": {
+      "found": true,
+      "path": "examples/minimal-control-record.json",
+      "schema_valid": true
+    },
+    "oversight": {
+      "found": true,
+      "path": "examples/minimal-oversight-record.json",
+      "schema_valid": true
+    },
+    "replay": {
+      "found": true,
+      "path": "examples/minimal-replay-record.json",
+      "schema_valid": true
+    },
+    "conformance_report": {
+      "found": true,
+      "path": "examples/minimal-conformance-report.json",
+      "schema_valid": true
+    }
+  },
+  "notes": [
+    "L4 cannot be granted automatically; manual/foundation review required for certification."
+  ],
+  "summary": {
+    "checked_evidence_count": 7,
+    "schema_validated_count": 7,
+    "hard_error_count": 0,
+    "warning_count": 0
+  }
+}
