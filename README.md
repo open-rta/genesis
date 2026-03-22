@@ -49,9 +49,8 @@ Genesis does not require importing Genesis code into your runtime.
 From `tools/validator/`:
 
 ```bash
-npm install
-npm run build
-node dist/cli.js ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
+go build -o bin/open-rta-validate ./cmd/open-rta-validate
+./bin/open-rta-validate ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
 ```
 
 The validator supports local filesystem evidence references in this initial release.

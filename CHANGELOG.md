@@ -3,7 +3,7 @@
 All notable changes to this repository are documented here.
 
 ## v0.2.0
-- Added a manifest-based validator tool under `tools/validator`.
+- Added a manifest-based validator tool under `tools/validator` implemented in Go.
 - Added `schemas/open-rta-manifest.schema.json`.
 - Added `schemas/open-rta-certificate.schema.json`.
 - Added automatic validation and manual review specification documents.

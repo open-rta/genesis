@@ -23,32 +23,31 @@ Genesis defines the laws and conformance expectations of Open RTA. It does not d
 - does not evaluate operational quality or safety
 - does not grant L4 or formal certification
 
-## Install and run
+## Build and run
 
 From `tools/validator/`:
 
 ```bash
-npm install
-npm run build
-node dist/cli.js <path-to-open-rta-manifest.json>
+go build -o bin/open-rta-validate ./cmd/open-rta-validate
+./bin/open-rta-validate <path-to-open-rta-manifest.json>
 ```
 
 Optional report output:
 
 ```bash
-node dist/cli.js <manifest-path> --report <report-output.json>
+./bin/open-rta-validate <manifest-path> --report <report-output.json>
 ```
 
-Development mode:
+Without building, you can also run directly:
 
 ```bash
-npm run dev -- ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
+go run ./cmd/open-rta-validate ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
 ```
 
 ## Example
 
 ```bash
-node dist/cli.js ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
+./bin/open-rta-validate ../../examples/open-rta-manifest.json --report ../../examples/validation-report.generated.json
 ```
 
 ## Output shape
