@@ -84,3 +84,9 @@ Manual/foundation review remains required for higher-trust judgments and formal 
 - `examples/` — illustrative manifests/evidence/reports
 - `governance/` — evolution process and policy
 - `tools/validator/` — isolated support tooling (Go)
+
+## Provenance and pre-existing work
+
+Open RTA Genesis is maintained as an independent/open-source specification and conformance repository. For provenance and disclosure context, see [Pre-existing Work Disclosure](docs/pre-existing-work-disclosure.md).
+
+Contribution, licensing, schema, example, and third-party dependency terms are governed by the repository documentation, the repository [`LICENSE`](LICENSE), applicable notices, and dependency licenses.
